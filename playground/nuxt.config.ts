@@ -3,7 +3,22 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: '2024-11-28',
   yandexMetrika: {
-    test: true,
-    webvisor: true,
+    config: [{
+      id: '12345678',
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true,
+      triggerEvent: true,
+      ecommerce: 'dataLayer',
+    }, {
+      id: '12345678',
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true,
+      triggerEvent: true,
+      ecommerce: 'dataLayer',
+    }],
   },
 })
