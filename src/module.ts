@@ -27,7 +27,17 @@ export default defineNuxtModule<ModuleOptions>({
 
     nuxt.options.runtimeConfig.public.yandexMetrika = defu(nuxt.options.runtimeConfig.public.yandexMetrika, options)
 
-    // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
-    addPlugin(resolver.resolve('./runtime/plugin'))
+    const head = nuxt.options.app.head
+    head.script = head.script || []
+    head.script.push({
+      src: 'https://mc.yandex.ru/metrika/tag.js',
+      async: true,
+      tagPosition: 'head',
+    })
+
+    addPlugin({
+      src: resolver.resolve('./runtime/plugin.ts'),
+      mode: 'client',
+    })
   },
 })
