@@ -1,5 +1,6 @@
 import { useRouter, useRuntimeConfig, useHead, defineNuxtPlugin } from 'nuxt/app'
 import type { YandexMetrikaOptions } from '../types'
+import { YandexMetrika } from './yandexMetrika'
 
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig().public.yandexMetrika as YandexMetrikaOptions
@@ -76,15 +77,15 @@ export default defineNuxtPlugin(() => {
         return
       }
     })
+  }
+  const yandexMetrika = new YandexMetrika(counter, second_counter)
+  if (window && window.ym && (counter || second_counter)) {
+    yandexMetrika.init()
+  }
 
-    if (typeof window !== 'undefined' && window.ym) {
-      if (counter?.id) {
-        window.ym(counter.id, 'init', counter.options || {})
-      }
-
-      if (second_counter?.id) {
-        window.ym(second_counter.id, 'init', second_counter.options || {})
-      }
-    }
+  return {
+    provide: {
+      yandexMetrika,
+    },
   }
 })

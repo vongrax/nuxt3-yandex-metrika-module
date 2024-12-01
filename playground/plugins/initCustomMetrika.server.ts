@@ -1,6 +1,4 @@
 export default defineNuxtPlugin(async (nuxtApp) => {
-  const response = await $fetch('https://jsonplaceholder.typicode.com/posts')
-
   nuxtApp.$config.public.yandexMetrika = {
     counter: {
       id: '12345678',

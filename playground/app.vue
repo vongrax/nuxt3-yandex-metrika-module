@@ -1,21 +1,20 @@
 <template>
   <div>
     Nuxt module playground!
-    <a
-      :href="`https://metrika.yandex.ru/stat/?id=${91585222}&amp;from=informer`"
-      target="_blank"
-      rel="nofollow"
-    ><img
-      :src="`https://informer.yandex.ru/informer/${91585222}/3_1_FFFFFFFF_EFEFEFFF_0_pageviews`"
-      style="width: 88px; height: 31px; border: 0"
-      alt="Яндекс.Метрика"
-      title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)"
-      class="ym-advanced-informer"
-      :data-cid="91585222"
-      data-lang="ru"
-    ></a>
+    <button @click="clickHandler">
+      click
+    </button>
   </div>
 </template>
 
 <script setup>
+import { useYandexMetrika } from '../src/runtime/composables/useYandexMetrika'
+
+const yandexMetrika = useYandexMetrika()
+const cb = () => {
+  console.log('from cb')
+}
+const clickHandler = () => {
+  yandexMetrika.reachGoal('click', { order_price: '1000.35', currency: 'RUB' }, cb)
+}
 </script>
