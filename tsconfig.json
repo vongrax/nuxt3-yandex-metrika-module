@@ -1,8 +1,12 @@
 {
-  "extends": "./.nuxt/tsconfig.json",
   "exclude": [
     "dist",
     "node_modules",
     "playground",
-  ]
+  ],
+  "compilerOptions": {
+    "module": "es2020",
+    "moduleResolution": "node",
+
+  },
 }
