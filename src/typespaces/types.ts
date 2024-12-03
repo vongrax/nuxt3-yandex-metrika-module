@@ -1,16 +1,19 @@
 declare global {
   interface Window {
     ym: (...args: unknown[]) => void
+    dataLayer: Record<string, unknown>[]
   }
 }
 
 export type YandexMetrikaOptions = {
   cdn: boolean
+  currencyCode?: string
   counter?: YandexMetrikaCounter
   second_counter?: YandexMetrikaCounter
+  debug: boolean
 }
 
-export type YndexMetrikaCounterOptions = {
+export type YandexMetrikaCounterOptions = {
   clickmap: boolean
   trackLinks: boolean
   accurateTrackBounce: boolean
@@ -20,5 +23,7 @@ export type YndexMetrikaCounterOptions = {
 
 export type YandexMetrikaCounter = {
   id: string
-  options?: YndexMetrikaCounterOptions
+  options?: YandexMetrikaCounterOptions
 }
+
+export type EcommerceProduct = Record<string, unknown>

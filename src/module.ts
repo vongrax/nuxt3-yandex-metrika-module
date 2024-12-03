@@ -1,4 +1,4 @@
-import { defineNuxtModule, addPlugin, createResolver } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, createResolver, addImports } from '@nuxt/kit'
 import type { ModuleOptions } from '@nuxt/schema'
 import defu from 'defu'
 
@@ -10,6 +10,11 @@ export default defineNuxtModule<ModuleOptions>({
       nuxt: '>=3.0.0',
     },
   },
+  defaults: {
+    cdn: false,
+    currencyCode: 'RUB',
+    debug: false,
+  },
   setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
 
@@ -18,6 +23,12 @@ export default defineNuxtModule<ModuleOptions>({
     addPlugin({
       src: resolver.resolve('./runtime/plugin.ts'),
       mode: 'all',
+    })
+
+    addImports({
+      name: 'useYandexMetrika',
+      as: 'useYandexMetrika',
+      from: resolver.resolve('./runtime/composables/useYandexMetrika'),
     })
   },
 })

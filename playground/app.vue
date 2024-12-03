@@ -16,5 +16,8 @@ const cb = () => {
 }
 const clickHandler = () => {
   yandexMetrika.reachGoal('click', { order_price: '1000.35', currency: 'RUB' }, cb)
+  yandexMetrika.sendEcommerceData('test', [
+
+  ])
 }
 </script>

@@ -1,5 +1,6 @@
 export default defineNuxtPlugin(async (nuxtApp) => {
   nuxtApp.$config.public.yandexMetrika = {
+    debug: true,
     counter: {
       id: '12345678',
       options: {

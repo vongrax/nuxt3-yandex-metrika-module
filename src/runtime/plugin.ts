@@ -1,11 +1,13 @@
 import { useRouter, useRuntimeConfig, useHead, defineNuxtPlugin } from 'nuxt/app'
-import type { YandexMetrikaOptions } from '../types'
+import type { YandexMetrikaOptions } from '../typespaces/types'
 import { YandexMetrika } from './yandexMetrika'
 
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig().public.yandexMetrika as YandexMetrikaOptions
 
-  const { counter, second_counter } = config
+  const { counter, second_counter, currencyCode, cdn, debug } = config
+
+  const metrikaUrl = (cdn ? 'https://cdn.jsdelivr.net/npm/yandex-metrica-watch' : 'https://mc.yandex.ru/metrika') + '/tag.js'
 
   useHead({
     script: [
@@ -25,7 +27,7 @@ export default defineNuxtPlugin(() => {
             k.async = 1;
             k.src = r;
             a.parentNode.insertBefore(k, a);
-          })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+          })(window, document, "script", "${metrikaUrl}", "ym");
         `,
         type: 'text/javascript',
       },
@@ -63,7 +65,7 @@ export default defineNuxtPlugin(() => {
       ],
     })
   }
-
+  const yandexMetrika = new YandexMetrika(counter, second_counter, currencyCode, debug)
   if (import.meta.client) {
     const router = useRouter()
     let ready = false
@@ -77,9 +79,6 @@ export default defineNuxtPlugin(() => {
         return
       }
     })
-  }
-  const yandexMetrika = new YandexMetrika(counter, second_counter)
-  if (window && window.ym && (counter || second_counter)) {
     yandexMetrika.init()
   }
 
